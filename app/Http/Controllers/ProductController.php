@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use  Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Product;
-use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -130,5 +132,18 @@ class ProductController extends Controller
         }
 
         return view('add_product', compact('returnProducts'));
+    }
+
+    public function addToCart(Request $request)
+    {
+        $id = $request->has('pid') ? $request->get('pid') : '';
+        $name = $request->has('name') ? $request->get('name') : '';
+        $quentity = $request->has('quentity') ? $request->get('quentity') : '';
+        $size = $request->has('size') ? $request->get('size') : '';
+        $price = $request->has('price') ? $request->get('price') : '';
+
+        $images = Product::find($id);
+        $images = explode('|', '$images')[0];
+        $cart = Cart::where('id', $id)->first();
     }
 }
