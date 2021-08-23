@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/products', function () {
-    return view('products');
-});
+//Route::get('/products', function () {
+//    return view('products');
+//});
 
 Route::get('/product_details', function () {
     return view('product_details');
@@ -34,5 +33,8 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-//Route::resource('/products', ProductController::class);
-Route::resource('/users', UserController::class);
+Route::resource('/products', \App\Http\Controllers\ProductController::class);
+
+Route::resource('/users', \App\Http\Controllers\UserController::class);
+
+Route::get('/admin_products', '\App\Http\Controllers\UserController@addProduct');

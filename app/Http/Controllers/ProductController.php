@@ -14,6 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        //return 'Index Method!';
+        return view('products');
     }
 
     /**
@@ -34,13 +36,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request->has('name') ? $request->get('name') : '';
+        $product->price = $request->has('price') ? $request->get('price') : '';
+        $product->amount = $request->has('amount') ? $request->get('amount') : '';
+        $product->is_active = 1;
+
+        $product->save();
+        return back()->with('success', 'Product Successfully Saved!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
@@ -51,7 +60,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
@@ -63,7 +72,7 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
@@ -74,7 +83,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
