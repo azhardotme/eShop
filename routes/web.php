@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/products', function () {
-//     return view('products');
-// });
+Route::get('/products', function () {
+    return view('products');
+});
 
 Route::get('/product_details', function () {
     return view('product_details');
@@ -34,5 +34,5 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-Route::resource('/products', ProductController::class);
+//Route::resource('/products', ProductController::class);
 Route::resource('/users', UserController::class);

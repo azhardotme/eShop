@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -11,9 +12,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        dd('Users');
+        $uName = $request->has('uname') ? $request->get('uname') : '';
+        $pass = $request->has('pass') ? $request->get('pass') : '';
+
+        $userInfo = User::where('name', '=', $uName)->where('password', '=', $pass)->first();
+
+        if (isset($userInfo) && $userInfo != null) {
+            return redirect('/products');
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -34,7 +44,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::insert([
+            'name' => $request->has('uname') ? $request->get('uname') : '',
+            'email' => $request->has('email') ? $request->get('email') : '',
+            'mobile' => $request->has('mobile') ? $request->get('mobile') : '',
+            'password' => $request->has('pass') ? $request->get('pass') : '',
+        ]);
+
+        return redirect('/products');
     }
 
     /**
