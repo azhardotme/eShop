@@ -72,7 +72,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $images = explode('|', $product->image);
+        $related_products = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->limit(3)->get();
+
+
+        return view('product_details', compact('product', 'images', 'related_products'));
     }
 
     /**
